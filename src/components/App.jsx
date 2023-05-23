@@ -2,11 +2,16 @@ import { Component } from 'react';
 import Section from './Section/Section';
 import Form from './Form/Form';
 import Contacts from './Contacts/Contacts';
+import Storage from 'utils/localStorage';
 
 class App extends Component {
   state = {
-    contacts: [],
+    contacts: Storage.getContacts() ?? [],
   };
+
+  componentDidUpdate() {
+    Storage.setContacts(this.state.contacts);
+  }
 
   setContact = newContact => {
     this.setState(({ contacts }) => ({
